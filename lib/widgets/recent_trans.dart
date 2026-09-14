@@ -15,7 +15,6 @@ class RecentTrans extends StatelessWidget {
   final String subtitle;
   final String action;
   final Color actionColor;
-
   @override
   Widget build(BuildContext context) {
     return Column(

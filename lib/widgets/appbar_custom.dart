@@ -11,17 +11,13 @@ class AppbarCustom extends StatelessWidget implements PreferredSizeWidget {
   final Widget leading;
   final String title;
   final Widget action;
-
   @override
   Widget build(BuildContext context) {
     return FadeInDown(
       child: AppBar(
         leading: IconButton(onPressed: () {}, icon: leading),
-        title: Text(title,
-          style: TextStyle(fontSize: 30, fontWeight: .bold),
-        ),
-        actions: [action
-        ],
+        title: Text(title, style: TextStyle(fontSize: 30, fontWeight: .bold)),
+        actions: [action],
       ),
     );
   }

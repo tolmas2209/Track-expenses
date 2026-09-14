@@ -5,7 +5,6 @@ import 'package:track_expenses/widgets/bottom_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
-
   @override
   State<SplashScreen> createState() => _SplashScreenState();
 }
@@ -14,14 +13,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    // 3 soniyadan keyin keyingi sahifaga o'tadi
     Future.delayed(const Duration(seconds: 3), () {
       if (mounted) {
-        Navigator.of(context).pushReplacement(
-          MaterialPageRoute(
-            builder: (context) => BottomBar(),
-          ), // Keyingi sahifa nomi
-        );
+        Navigator.of(
+          context,
+        ).pushReplacement(MaterialPageRoute(builder: (context) => BottomBar()));
       }
     });
   }

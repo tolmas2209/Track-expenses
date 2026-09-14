@@ -5,28 +5,23 @@ import 'package:track_expenses/providers/detail_screen_provider.dart';
 
 class CategoryGridWidget extends StatelessWidget {
   const CategoryGridWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
-    // Providerni eshitamiz (listen: true holatida)
     final provider = Provider.of<DetailScreenProvider>(context);
-
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 24),
+      padding: EdgeInsets.symmetric(vertical: 24),
       child: GridView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         itemCount: provider.categories.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 4,
         ),
         itemBuilder: (context, index) {
           final item = provider.categories[index];
           final bool isSelected = provider.selectedIndex == index;
-
           return GestureDetector(
             onTap: () {
-              // Provider ichidagi funksiyani chaqiramiz
               provider.selectCategory(index);
             },
             child: Column(
@@ -43,9 +38,7 @@ class CategoryGridWidget extends StatelessWidget {
                     size: 24,
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
-                ), // Eski flutterda spacing: 10 ishlamasa Column ichida foydali
+                SizedBox(height: 10),
                 Text(
                   item["title"],
                   style: TextStyle(

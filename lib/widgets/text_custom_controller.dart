@@ -4,7 +4,6 @@ import 'package:track_expenses/const/colors/app_colors.dart';
 class TextCustomController extends StatelessWidget {
   const TextCustomController({super.key, required this.controller});
   final TextEditingController controller;
-
   @override
   Widget build(BuildContext context) {
     return TextField(

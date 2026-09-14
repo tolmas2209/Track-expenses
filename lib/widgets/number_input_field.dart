@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-
 import 'package:track_expenses/const/colors/app_colors.dart';
 
 class NumberInputField extends StatelessWidget {
   final String hintText;
   final TextEditingController controller;
-
   const NumberInputField({
     super.key,
     required this.hintText,

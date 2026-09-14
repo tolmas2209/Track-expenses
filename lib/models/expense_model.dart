@@ -7,8 +7,7 @@ class ExpenseModel {
   String image;
   int id;
   bool isIncome;
-  DateTime createdAt; // ✅ YANGI QO'SHILDI
-
+  DateTime createdAt;
   ExpenseModel({
     required this.value,
     required this.type,
@@ -16,9 +15,8 @@ class ExpenseModel {
     required this.image,
     required this.id,
     required this.isIncome,
-    required this.createdAt, // ✅ YANGI QO'SHILDI
+    required this.createdAt,
   });
-
   factory ExpenseModel.fromJson(Map<String, dynamic> json) {
     return ExpenseModel(
       value: (json['value'] as num).toDouble(),
@@ -30,13 +28,11 @@ class ExpenseModel {
       image: json['image'],
       id: json['id'] as int,
       isIncome: json['isIncome'] == 1,
-      // ✅ Bazadan matn shaklida kelgan sanani DateTime obyektiga o'giramiz
-      createdAt: json['createdAt'] != null 
-          ? DateTime.parse(json['createdAt']) 
+      createdAt: json['createdAt'] != null
+          ? DateTime.parse(json['createdAt'])
           : DateTime.now(),
     );
   }
-
   Map<String, dynamic> toJson() => {
     "id": id,
     "value": value,
@@ -44,6 +40,6 @@ class ExpenseModel {
     "note": note,
     "image": image,
     "isIncome": isIncome ? 1 : 0,
-    "createdAt": createdAt.toIso8601String(), // ✅ DateTime'ni bazaga matn qilib saqlaymiz
+    "createdAt": createdAt.toIso8601String(),
   };
 }

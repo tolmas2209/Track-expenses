@@ -1,14 +1,14 @@
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:track_expenses/models/expense_model.dart';
 
 class DatabaseService {
   static late Database db;
   static final String dataBaseName = "expenses.db";
-
-  static Future<void> init(String filePath) async {
-    final dbPath = await getDatabasesPath();
-    final path = join(dbPath, filePath);
+  static Future<void> init() async {
+    final cacheDir = await getTemporaryDirectory();
+    final path = join(cacheDir.path, dataBaseName);
     db = await openDatabase(path, version: 1, onCreate: _createDB);
   }
 

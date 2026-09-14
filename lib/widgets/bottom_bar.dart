@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:track_expenses/const/colors/app_colors.dart';
 import 'package:track_expenses/screens/home_screen.dart';
-
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});
-
   @override
   State<BottomBar> createState() => _BottomBarState();
 }
-
 class _BottomBarState extends State<BottomBar> {
   int _currentIndex = 0;
   final PageController _pageController = PageController();
