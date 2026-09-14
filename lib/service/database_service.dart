@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
@@ -26,6 +28,10 @@ class DatabaseService {
         ''');
   }
 
+  static Future<void> deleteExpenseFromDB(int id) async {
+    await db.delete("expenses", where: "id = ?", whereArgs: [id]);
+  }
+
   static Future<void> closeDB() async => await db.close();
   static Future<void> addExpensesToDB(ExpenseModel expense) async {
     await db.insert("expenses", expense.toJson());
@@ -42,6 +48,26 @@ class DatabaseService {
   }
 
   static Future<void> clearDB() async {
+    // 1. Bazadagi yozuvlarni o'chiramiz
     await db.delete("expenses");
+
+    try {
+      // 2. Kesh papkasini topamiz va uning ichidagi barcha vaqtinchalik rasmlarni o'chiramiz
+      final cacheDir = await getTemporaryDirectory();
+      if (await cacheDir.exists()) {
+        final List<FileSystemEntity> entities = cacheDir.listSync();
+        for (var entity in entities) {
+          // Faqat rasmlarni o'chiramiz (baza fayliga tegmaymiz)
+          if (entity is File &&
+              !entity.path.endsWith('.db') &&
+              !entity.path.endsWith('.db-journal')) {
+            await entity.delete();
+          }
+        }
+        print("Keshdagi barcha rasmlar jismonan o'chirildi.");
+      }
+    } catch (e) {
+      print("Rasmlarni keshdan o'chirishda xatolik: $e");
+    }
   }
 }

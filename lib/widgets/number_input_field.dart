@@ -12,17 +12,17 @@ class NumberInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      padding: EdgeInsets.symmetric(horizontal: 20),
       child: TextField(
         controller: controller,
-        style: TextStyle(
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-          color: AppColors.primary,
-        ),
+        style: TextStyle(fontSize: 16, color: AppColors.primary),
         decoration: InputDecoration(
           hintText: hintText,
-          hintStyle: TextStyle(fontSize: 16, color: AppColors.neutral),
+          hintStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: AppColors.neutral,
+          ),
           filled: true,
           border: UnderlineInputBorder(
             borderSide: BorderSide(color: AppColors.neutral),

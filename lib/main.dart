@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:track_expenses/const/themes/app_themes.dart';
+import 'package:track_expenses/providers/detail_screen_provider.dart';
 import 'package:track_expenses/providers/home_screen_provider.dart';
 import 'package:track_expenses/providers/onboarding_provider.dart';
 import 'package:track_expenses/screens/onboarding_screen.dart';
@@ -14,6 +15,7 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => OnboardingProvider()),
         ChangeNotifierProvider(create: (_) => HomeScreenProvider()),
+        ChangeNotifierProvider(create: (_) => DetailScreenProvider()),
       ],
       child: MainApp(),
     ),

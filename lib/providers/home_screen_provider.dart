@@ -13,6 +13,20 @@ class HomeScreenProvider extends ChangeNotifier {
   double get totalExpense => _totalExpense;
   bool _isLoading = true;
   bool get isLoading => _isLoading;
+
+  Future<void> deleteTransaction(int id) async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await DatabaseService.deleteExpenseFromDB(id);
+      await loadTransactions();
+    } catch (e) {
+      debugPrint("O'chirishda xatolik yuz berdi: $e");
+    }
+    _isLoading = false;
+    notifyListeners();
+  }
+
   Future<void> loadTransactions() async {
     _isLoading = true;
     notifyListeners();
@@ -31,6 +45,22 @@ class HomeScreenProvider extends ChangeNotifier {
       _totalBalance = _totalIncome - _totalExpense;
     } catch (e) {
       debugPrint("Ma'lumot yuklashda xatolik: $e");
+    }
+    _isLoading = false;
+    notifyListeners();
+  }
+
+  Future<void> clearAppCache() async {
+    _isLoading = true;
+    notifyListeners();
+    try {
+      await DatabaseService.clearDB();
+      _transactions.clear();
+      _totalBalance = 0.0;
+      _totalIncome = 0.0;
+      _totalExpense = 0.0;
+    } catch (e) {
+      debugPrint("Keshni tozalashda xatolik: $e");
     }
     _isLoading = false;
     notifyListeners();

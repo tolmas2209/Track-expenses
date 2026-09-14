@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:track_expenses/const/colors/app_colors.dart';
-import 'package:track_expenses/service/database_service.dart';
+import 'package:track_expenses/providers/home_screen_provider.dart';
 import 'package:track_expenses/utils/size_extension.dart';
 
 class DrawerCustom extends StatelessWidget {
   const DrawerCustom({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,20 +20,27 @@ class DrawerCustom extends StatelessWidget {
               onTap: () {
                 showCupertinoDialog(
                   context: context,
-                  builder: (context) => CupertinoAlertDialog(
-                    title: Text("Confirm to clear the cache ?"),
+                  builder: (dialogContext) => CupertinoAlertDialog(
+                    title: Text("Confirm to clear the cache?"),
                     actions: [
-                      CupertinoActionSheetAction(
+                      CupertinoDialogAction(
                         onPressed: () {
+                          Navigator.pop(context);
                           Navigator.pop(context);
                         },
                         child: Text("Cancel"),
                       ),
-                      CupertinoActionSheetAction(
-                        onPressed: () {
-                          DatabaseService.clearDB();
-                          Navigator.pop(context);
-                          Navigator.pop(context);
+                      CupertinoDialogAction(
+                        isDestructiveAction: true,
+                        onPressed: () async {
+                          await context
+                              .read<HomeScreenProvider>()
+                              .clearAppCache();
+
+                          if (context.mounted) {
+                            Navigator.pop(context);
+                            Navigator.pop(context);
+                          }
                         },
                         child: Text("Confirm"),
                       ),

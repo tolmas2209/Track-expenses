@@ -9,7 +9,7 @@ class CategoryGridWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = Provider.of<DetailScreenProvider>(context);
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 24),
+      padding: EdgeInsets.only(top: 24),
       child: GridView.builder(
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -28,14 +28,14 @@ class CategoryGridWidget extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 CircleAvatar(
-                  radius: 32,
+                  radius: 28,
                   backgroundColor: isSelected
                       ? AppColors.primary
                       : AppColors.secondary,
                   child: Icon(
                     isSelected ? item["activeIcon"] : item["icon"],
                     color: isSelected ? AppColors.white : AppColors.neutral,
-                    size: 24,
+                    size: 30,
                   ),
                 ),
                 SizedBox(height: 10),
@@ -43,9 +43,7 @@ class CategoryGridWidget extends StatelessWidget {
                   item["title"],
                   style: TextStyle(
                     color: isSelected ? AppColors.primary : AppColors.neutral,
-                    fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
                   ),
                 ),
               ],

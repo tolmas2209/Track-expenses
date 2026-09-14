@@ -56,7 +56,6 @@ class RecentTrans extends StatelessWidget {
             ),
           ],
         ),
-        Divider(height: 20, indent: 20, color: AppColors.neutral),
       ],
     );
   }

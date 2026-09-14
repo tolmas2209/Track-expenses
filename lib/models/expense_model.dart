@@ -4,7 +4,7 @@ class ExpenseModel {
   double value;
   ExpenseCategory type;
   String? note;
-  String image;
+  String? image;
   int id;
   bool isIncome;
   DateTime createdAt;
@@ -12,7 +12,7 @@ class ExpenseModel {
     required this.value,
     required this.type,
     this.note,
-    required this.image,
+    this.image,
     required this.id,
     required this.isIncome,
     required this.createdAt,

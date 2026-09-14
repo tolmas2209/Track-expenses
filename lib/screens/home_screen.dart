@@ -1,4 +1,6 @@
+import 'dart:io'; // 📁 File bilan ishlash uchun shart
 import 'package:animate_do/animate_do.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:track_expenses/const/colors/app_colors.dart';
@@ -52,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     final homeProvider = context.watch<HomeScreenProvider>();
@@ -121,7 +124,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Text(
                         "Recent Transactions",
-                        style: TextStyle(fontSize: 24, fontWeight: .w600),
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w600,
+                        ),
                       ),
                       TextButton(
                         onPressed: () {},
@@ -154,15 +160,150 @@ class _HomeScreenState extends State<HomeScreen> {
                                       (item.note == null || item.note!.isEmpty)
                                       ? formattedDate
                                       : "${item.note!} • $formattedDate";
-                                  return RecentTrans(
-                                    leading: _getIconForCategory(item.type),
-                                    title: item.type.name.toUpperCase(),
-                                    subtitle: subtitleText,
-                                    action:
-                                        "${item.isIncome ? '+' : '-'}\$${item.value.toStringAsFixed(2)}",
-                                    actionColor: item.isIncome
-                                        ? AppColors.tertiary
-                                        : AppColors.primary,
+                                  List<String> rasmYollari = [];
+                                  final String imageField = item.image
+                                      .toString();
+
+                                  if (imageField.contains('/') ||
+                                      imageField.contains('cache')) {
+                                    rasmYollari = imageField
+                                        .split(',')
+                                        .where((e) => e.trim().isNotEmpty)
+                                        .toList();
+                                  }
+
+                                  return GestureDetector(
+                                    onLongPress: () {
+                                      showCupertinoDialog(
+                                        context: context,
+                                        builder: (dialogContext) =>
+                                            CupertinoAlertDialog(
+                                              title: Text("Delete Transaction"),
+                                              content: Text(
+                                                "Do you want to delete this ${(item.note != null && item.note!.isNotEmpty) ? item.note : item.type.name} transaction?",
+                                              ),
+                                              actions: [
+                                                CupertinoDialogAction(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                        dialogContext,
+                                                      ),
+                                                  child: Text("Cancel"),
+                                                ),
+                                                CupertinoDialogAction(
+                                                  isDestructiveAction: true,
+                                                  onPressed: () async {
+                                                    await context
+                                                        .read<
+                                                          HomeScreenProvider
+                                                        >()
+                                                        .deleteTransaction(
+                                                          item.id,
+                                                        );
+                                                    if (context.mounted) {
+                                                      Navigator.pop(
+                                                        dialogContext,
+                                                      );
+                                                    }
+                                                  },
+                                                  child: Text("Delete"),
+                                                ),
+                                              ],
+                                            ),
+                                      );
+                                    },
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        RecentTrans(
+                                          leading: _getIconForCategory(
+                                            item.type,
+                                          ),
+                                          title: item.type.name.toUpperCase(),
+                                          subtitle: subtitleText,
+                                          action:
+                                              "${item.isIncome ? '+' : '-'}\$${item.value.toStringAsFixed(2)}",
+                                          actionColor: item.isIncome
+                                              ? AppColors.tertiary
+                                              : AppColors.primary,
+                                        ),
+                                        if (rasmYollari.isNotEmpty)
+                                          Padding(
+                                            padding: EdgeInsets.only(
+                                              left: 20,
+                                              top: 8,
+                                              bottom: 8,
+                                            ),
+                                            child: Wrap(
+                                              spacing: 8,
+                                              runSpacing: 8,
+                                              children: List.generate(
+                                                rasmYollari.length,
+                                                (imgIndex) {
+                                                  final rasmFayli = File(
+                                                    rasmYollari[imgIndex],
+                                                  );
+                                                  if (!rasmFayli
+                                                      .existsSync()) {
+                                                    return SizedBox();
+                                                  }
+                                    
+                                                  return ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                          6,
+                                                        ),
+                                                    child: GestureDetector(
+                                                      onTap: () {
+                                                        showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (
+                                                                dialogContext,
+                                                              ) => Dialog(
+                                                                child: Image.file(
+                                                                  rasmFayli,
+                                                                  fit: BoxFit
+                                                                      .contain,
+                                                                ),
+                                                              ),
+                                                        );
+                                                      },
+                                                      child: Image.file(
+                                                        rasmFayli,
+                                                        width: 80,
+                                                        height: 60,
+                                                        fit: BoxFit.cover,
+                                                        errorBuilder:
+                                                            (
+                                                              context,
+                                                              error,
+                                                              stackTrace,
+                                                            ) {
+                                                              return Container(
+                                                                width: 80,
+                                                                height: 60,
+                                                                color: Colors
+                                                                    .grey,
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .broken_image,
+                                                                  size: 20,
+                                                                ),
+                                                              );
+                                                            },
+                                                      ),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ),
+                                        SizedBox(height: 8),
+                                        Divider(height: 1, thickness: 0.5),
+                                      ],
+                                    ),
                                   );
                                 },
                               ),

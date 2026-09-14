@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:track_expenses/const/colors/app_colors.dart';
-
 class TextCustomController extends StatelessWidget {
   const TextCustomController({super.key, required this.controller});
   final TextEditingController controller;
@@ -12,10 +12,16 @@ class TextCustomController extends StatelessWidget {
       style: TextStyle(fontSize: 56, fontWeight: FontWeight.w600),
       cursorColor: AppColors.primary,
       cursorHeight: 65,
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r'^\d*[\.,]?\d*')),
+      ],
       decoration: InputDecoration(
         prefixIcon: Padding(
           padding: EdgeInsets.only(left: 120),
-          child: Text("\$", style: TextStyle(fontSize: 40, fontWeight: .w600)),
+          child: Text(
+            "\$",
+            style: TextStyle(fontSize: 40, fontWeight: FontWeight.w600),
+          ),
         ),
         hintText: '0.00',
         hintStyle: TextStyle(fontSize: 56, fontWeight: FontWeight.w600),
