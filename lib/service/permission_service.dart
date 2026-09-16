@@ -39,7 +39,9 @@ class PermissionService {
     } catch (e) {
       return;
     }
-  } static Future<void> requestCameraPermission() async {
+  }
+
+  static Future<void> requestCameraPermission() async {
     try {
       var status = await Permission.camera.status;
       if (status == PermissionStatus.granted ||
