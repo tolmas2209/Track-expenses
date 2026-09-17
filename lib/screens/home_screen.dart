@@ -153,11 +153,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                                         .deleteTransaction(
                                                           item.id,
                                                         );
-                                                    if (context.mounted) {
-                                                      Navigator.pop(
-                                                        dialogContext,
-                                                      );
-                                                    }
+                                                    Navigator.pop(dialogContext);
                                                   },
                                                   child: Text("Delete"),
                                                 ),
