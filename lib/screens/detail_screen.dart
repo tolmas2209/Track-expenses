@@ -12,7 +12,6 @@ import 'package:track_expenses/widgets/text_custom_controller.dart';
 
 class DetailScreen extends StatelessWidget {
   const DetailScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(

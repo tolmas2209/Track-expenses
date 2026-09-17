@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:track_expenses/models/expense_model.dart';
@@ -60,6 +59,7 @@ class DetailScreenProvider extends ChangeNotifier {
     _selectedIndex = index;
     notifyListeners();
   }
+
   Future<bool> saveEntry(BuildContext context) async {
     String rawText = valueController.text.trim();
     rawText = rawText.replaceAll(',', '.');
@@ -94,12 +94,14 @@ class DetailScreenProvider extends ChangeNotifier {
       return false;
     }
   }
+
   @override
   void dispose() {
     scrollController.dispose();
     valueController.dispose();
     super.dispose();
   }
+
   Future<void> pickImageFromGallery({required Function onSuccess}) async {
     final picker = ImagePicker();
     final result = await picker.pickMultiImage(limit: 5, imageQuality: 100);
@@ -111,6 +113,7 @@ class DetailScreenProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   Future<void> pickImageFromCamera({required Function onSuccess}) async {
     final picker = ImagePicker();
     final result = await picker.pickImage(

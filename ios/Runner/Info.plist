@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://apple.com">
 <plist version="1.0">
 <dict>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSAllowsArbitraryLoadsForMedia</key>
+		<true/>
+	</dict>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Ilova audio yozish va ovozli funksiyalar uchun mikrofondan foydalanadi.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Xarajatlaringizga chek rasmlarini galereyadan yuklash uchun ruxsat kerak.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Xarajatlaringiz cheklarini rasmga olish uchun kamera ruxsati kerak.</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Xarajat qilingan joyni avtomatik aniqlash va xaritada ko'rsatish uchun lokatsiya ruxsati kerak.</string>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-    <string>Ilova fonda turganda ham xarajatlaringiz koordinatasini aniq saqlash uchun lokatsiya ruxsati kerak.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Xarajatlaringizga chek rasmlarini galereyadan yuklash uchun ruxsat kerak.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Xarajatlaringiz cheklarini rasmga olish uchun kamera ruxsati kerak.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Xarajat qilingan joyni avtomatik aniqlash va xaritada ko'rsatish uchun lokatsiya ruxsati kerak.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Ilova fonda turganda ham xarajatlaringiz koordinatasini aniq saqlash uchun lokatsiya ruxsati kerak.</string>
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>

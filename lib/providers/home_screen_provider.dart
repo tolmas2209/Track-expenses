@@ -64,5 +64,18 @@ class HomeScreenProvider extends ChangeNotifier {
     }
     _isLoading = false;
     notifyListeners();
+  }// providers/home_screen_provider.dart fayli ichiga:
+
+List<String> getParsedImages(String? imageField) {
+  if (imageField == null) return [];
+  final String path = imageField.toString();
+  if (path.contains('/') || path.contains('cache')) {
+    return path
+        .split(',')
+        .where((e) => e.trim().isNotEmpty)
+        .toList();
   }
+  return [];
+}
+
 }
